@@ -5,7 +5,11 @@ from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 
-limiter = Limiter(get_remote_address, app=app)
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    storage_uri="memory://",
+)
 
 # Clé API à stocker dans une variable d'environnement ou fichier sécurisé
 API_KEY = "super_secret_key"
