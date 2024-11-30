@@ -21,3 +21,5 @@ variable "database_name" {
 variable "container_name" {
   type = string
 }
+
+variable "subscription_id" {}

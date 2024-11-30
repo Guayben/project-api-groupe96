@@ -33,3 +33,24 @@ variable "app_service_subnet_id" {
 variable "api_key" {
   type = string
 }
+
+variable "cosmosdb_endpoint" {
+  description = "Endpoint of the Cosmos DB"
+  type        = string
+}
+
+variable "cosmosdb_readonly_key" {
+  description = "Read-only key for the Cosmos DB"
+  type        = string
+  sensitive   = true
+}
+
+variable "cosmosdb_database_name" {
+  description = "Name of the Cosmos DB database"
+  type        = string
+}
+
+variable "cosmosdb_container_name" {
+  description = "Name of the Cosmos DB container"
+  type        = string
+}

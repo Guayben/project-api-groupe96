@@ -15,6 +15,7 @@ terraform {
 module "resource_group" {
   source = "./modules/resource_group"
 
+  subscription_id     = var.subscription_id
   resource_group_name = var.resource_group_name
   location            = var.location
 }
@@ -46,6 +47,11 @@ module "app_service" {
   docker_image_name        = var.docker_image_name
   app_service_subnet_id    = module.virtual_network.app_service_subnet_id
   api_key                  = var.api_key
+
+  cosmosdb_endpoint       = var.cosmosdb_endpoint
+  cosmosdb_readonly_key   = var.cosmosdb_readonly_key
+  cosmosdb_database_name  = var.cosmosdb_database_name
+  cosmosdb_container_name = var.cosmosdb_container_name
 }
 
 module "cosmosdb" {
@@ -57,4 +63,5 @@ module "cosmosdb" {
   cosmosdb_subnet_id    = module.virtual_network.cosmosdb_subnet_id
   database_name         = var.database_name
   container_name        = var.container_name
+  subscription_id       = var.subscription_id
 }

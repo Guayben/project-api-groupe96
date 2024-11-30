@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>API Tester</h1>
+        <div>
+            <h2>Items</h2>
+            <button id="getItems">Get Items</button>
+            <pre id="itemsOutput">Click "Get Items" to test the endpoint.</pre>
+        </div>
+        <div>
+            <h2>Baskets</h2>
+            <button id="getBaskets">Get Baskets</button>
+            <pre id="basketsOutput">Click "Get Baskets" to test the endpoint.</pre>
+        </div>
+        <div>
+            <h2>Users</h2>
+            <button id="getUsers">Get Users</button>
+            <pre id="usersOutput">Click "Get Users" to test the endpoint.</pre>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = "super_secret_key"; // Replace with your actual key
+        const BASE_URL = "http://127.0.0.1:80"; // Replace with your deployed API's base URL
+
+        document.getElementById("getItems").addEventListener("click", () => {
+            fetch(`${BASE_URL}/items`, {
+                method: "GET",
+                headers: {
+                    "x-api-key": API_KEY
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("itemsOutput").textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById("itemsOutput").textContent = `Error: ${error}`;
+            });
+        });
+
+        document.getElementById("getBaskets").addEventListener("click", () => {
+            fetch(`${BASE_URL}/baskets`, {
+                method: "GET",
+                headers: {
+                    "x-api-key": API_KEY
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("basketsOutput").textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById("basketsOutput").textContent = `Error: ${error}`;
+            });
+        });
+
+        document.getElementById("getUsers").addEventListener("click", () => {
+            fetch(`${BASE_URL}/users`, {
+                method: "GET",
+                headers: {
+                    "x-api-key": API_KEY
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("usersOutput").textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById("usersOutput").textContent = `Error: ${error}`;
+            });
+        });
+    </script>
+</body>
+</html>

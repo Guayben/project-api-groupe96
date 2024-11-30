@@ -36,3 +36,9 @@ resource "azurerm_cosmosdb_sql_container" "shop_app_container" {
   partition_key_paths = ["/partitionKey"]
   throughput          = 400
 }
+
+data "azurerm_cosmosdb_account" "shop_app_keys" {
+  name                = azurerm_cosmosdb_account.shop_app_cosmosdb.name
+  resource_group_name = var.resource_group_name
+}
+

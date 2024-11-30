@@ -3,3 +3,6 @@ Werkzeug==2.3.7
 pytest==7.4.0
 Gunicorn
 flask-limiter
+azure-cosmos
+python-dotenv
+flask_cors
