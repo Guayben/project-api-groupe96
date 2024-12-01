@@ -73,7 +73,33 @@ def add_item():
         return jsonify({"message": "Item added successfully", "item": item}), 201
     except exceptions.CosmosResourceExistsError:
         return jsonify({"error": "Item already exists"}), 409
-    
+
+@app.route("/baskets", methods=["GET"])
+@limiter.limit("10 per minute")
+def get_baskets():
+    """Route to return basket contents for each user."""
+    verify_api_key()
+    try:
+        # Query to retrieve baskets
+        query = "SELECT * FROM c WHERE c.type = 'basket'"
+        baskets = list(container.query_items(query, enable_cross_partition_query=True))
+        return jsonify({"baskets": baskets})
+    except exceptions.CosmosHttpResponseError as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/users", methods=["GET"])
+@limiter.limit("10 per minute")
+def get_users():
+    """Route to return all users."""
+    verify_api_key()
+    try:
+        # Query to retrieve users
+        query = "SELECT * FROM c WHERE c.type = 'user'"
+        users = list(container.query_items(query, enable_cross_partition_query=True))
+        return jsonify({"users": users})
+    except exceptions.CosmosHttpResponseError as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/test-db", methods=["GET"])
 def test_db():
     """Route pour tester la connexion à Cosmos DB"""
@@ -83,7 +109,7 @@ def test_db():
         return jsonify({"success": True, "message": "Connection successful", "items": items})
     except exceptions.CosmosHttpResponseError as e:
         return jsonify({"success": False, "error": str(e)}), 500
-    
+
 @app.route("/ui")
 def ui():
     return render_template("index.html")

@@ -64,4 +64,5 @@ module "cosmosdb" {
   database_name         = var.database_name
   container_name        = var.container_name
   subscription_id       = var.subscription_id
+  authorized_ips        = var.authorized_ips
 }
