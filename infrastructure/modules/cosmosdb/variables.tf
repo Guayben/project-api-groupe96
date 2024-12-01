@@ -23,3 +23,9 @@ variable "container_name" {
 }
 
 variable "subscription_id" {}
+
+variable "authorized_ips" {
+  description = "List of IPs allowed to access Cosmos DB."
+  type        = list(string)
+  default     = ["203.0.113.0", "198.51.100.0"]
+}

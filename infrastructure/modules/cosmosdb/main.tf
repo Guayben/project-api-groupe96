@@ -5,6 +5,7 @@ resource "azurerm_cosmosdb_account" "shop_app_cosmosdb" {
   offer_type                       = "Standard"
   kind                             = "GlobalDocumentDB"
   is_virtual_network_filter_enabled = true
+  public_network_access_enabled     = true
 
   consistency_policy {
     consistency_level       = "Session"
@@ -20,6 +21,8 @@ resource "azurerm_cosmosdb_account" "shop_app_cosmosdb" {
   virtual_network_rule {
     id = var.cosmosdb_subnet_id
   }
+
+  ip_range_filter = var.authorized_ips
 }
 
 resource "azurerm_cosmosdb_sql_database" "shop_app_db" {
