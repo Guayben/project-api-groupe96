@@ -33,7 +33,7 @@ resource "azurerm_linux_web_app" "shop_app_service" {
   app_settings = {
     API_KEY = var.api_key
     COSMOSDB_ENDPOINT       = var.cosmosdb_endpoint
-    COSMOSDB_READONLY_KEY   = module.cosmosdb.cosmosdb_readonly_key
+    COSMOSDB_READONLY_KEY   = var.cosmosdb_readonly_key
     COSMOSDB_DATABASE_NAME  = var.cosmosdb_database_name
     COSMOSDB_CONTAINER_NAME = var.cosmosdb_container_name
   }

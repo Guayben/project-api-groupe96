@@ -7,7 +7,7 @@ resource "azurerm_cosmosdb_account" "shop_app_cosmosdb" {
   kind                             = "GlobalDocumentDB"                # Type de base de données (base de documents globale).
   is_virtual_network_filter_enabled = true                             # Active le filtrage des réseaux virtuels.
 
-    ip_range_filter = ["0.0.0.0"]
+  ip_range_filter = ["0.0.0.0"]
 
   consistency_policy {
     consistency_level       = "Session"        # Niveau de cohérence (Session) pour équilibrer performances et disponibilité.
@@ -25,8 +25,6 @@ resource "azurerm_cosmosdb_account" "shop_app_cosmosdb" {
   virtual_network_rule {
     id = var.cosmosdb_subnet_id                # Identifiant du sous-réseau autorisé.
   }
-
-  ip_range_filter = var.authorized_ips         # Liste des adresses IP autorisées à accéder au compte.
 }
 
 # Crée une base de données SQL dans le compte CosmosDB.
@@ -37,17 +35,35 @@ resource "azurerm_cosmosdb_sql_database" "shop_app_db" {
 }
 
 # Crée un conteneur SQL dans la base de données CosmosDB.
-resource "azurerm_cosmosdb_sql_container" "shop_app_container" {
-  name                = var.container_name                       # Nom du conteneur, défini via une variable.
+resource "azurerm_cosmosdb_sql_container" "items_container" {
+  name                = "Items"                       # Nom du conteneur, défini via une variable.
   resource_group_name = var.resource_group_name                  # Groupe de ressources associé.
   account_name        = azurerm_cosmosdb_account.shop_app_cosmosdb.name # Nom du compte CosmosDB parent.
   database_name       = azurerm_cosmosdb_sql_database.shop_app_db.name # Nom de la base de données parent.
-  partition_key_paths = ["/partitionKey"]                        # Chemin de la clé de partition.
+  partition_key_paths = ["/ItemsId"]                        # Chemin de la clé de partition.
   throughput          = 400                                      # Débit provisionné pour le conteneur (en RU/s).
+}
+
+resource "azurerm_cosmosdb_sql_container" "users_container" {
+  name                = "Users" # Container name
+  resource_group_name = var.resource_group_name
+  account_name        = azurerm_cosmosdb_account.shop_app_cosmosdb.name
+  database_name       = azurerm_cosmosdb_sql_database.shop_app_db.name
+  partition_key_paths = ["/userId"] 
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_sql_container" "baskets_container" {
+  name                = "Baskets" # Container name
+  resource_group_name = var.resource_group_name
+  account_name        = azurerm_cosmosdb_account.shop_app_cosmosdb.name
+  database_name       = azurerm_cosmosdb_sql_database.shop_app_db.name
+  partition_key_paths = ["/basketId"] 
+  throughput          = 400
 }
 
 # Accède aux informations du compte CosmosDB, comme les clés ou l'URL.
 data "azurerm_cosmosdb_account" "shop_app_keys" {
-  name                = azurerm_cosmosdb_account.shop_app_cosmosdb.name # Nom du compte CosmosDB.
-  resource_group_name = var.resource_group_name                         # Groupe de ressources associé.
+  name                = azurerm_cosmosdb_account.shop_app_cosmosdb.name
+  resource_group_name = var.resource_group_name
 }

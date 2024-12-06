@@ -68,7 +68,9 @@ module "cosmosdb" {
   resource_group_name   = module.resource_group.name  # Nom du groupe de ressources.
   cosmosdb_subnet_id    = module.virtual_network.cosmosdb_subnet_id  # ID du sous-réseau CosmosDB.
   database_name         = var.database_name          # Nom de la base de données CosmosDB.
-  container_name        = var.container_name         # Nom du conteneur CosmosDB.
   subscription_id       = var.subscription_id       # Identifiant de l'abonnement Azure.
-  authorized_ips        = var.authorized_ips         # Liste des adresses IP autorisées à accéder à CosmosDB.
+
+  items_container_name = var.items_container_name
+  users_container_name  = var.users_container_name
+  baskets_container_name = var.baskets_container_name
 }

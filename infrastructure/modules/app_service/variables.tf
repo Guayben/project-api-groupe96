@@ -49,12 +49,6 @@ variable "cosmosdb_endpoint" {
   type        = string                     
 }
 
-# Clé de lecture seule pour accéder à CosmosDB.
-variable "cosmosdb_readonly_key" {
-  description = "Read-only key for the Cosmos DB"
-  type        = string
-}
-
 # Nom de la base de données CosmosDB.
 variable "cosmosdb_database_name" {
   description = "Name of the Cosmos DB database" 
@@ -65,4 +59,9 @@ variable "cosmosdb_database_name" {
 variable "cosmosdb_container_name" {
   description = "Name of the Cosmos DB container" 
   type        = string                            
+}
+
+variable "cosmosdb_readonly_key" {
+  description = "Read-only key for the Cosmos DB"
+  type        = string
 }

@@ -108,10 +108,20 @@ variable "database_name" {
   default = "shop-app-db"  # Valeur par défaut pour le nom de la base de données.
 }
 
-# Nom par défaut du conteneur CosmosDB.
-variable "container_name" {
-  type    = string
-  default = "shop-app-container"  # Valeur par défaut pour le nom du conteneur CosmosDB.
+
+variable "items_container_name" {
+  type = string
+  default = "Items"
+}
+
+variable "users_container_name" {
+  type = string
+  default = "Users"
+}
+
+variable "baskets_container_name" {
+  type = string
+  default = "Baskets"
 }
 
 # Point de terminaison de CosmosDB (non défini par défaut).
@@ -130,11 +140,4 @@ variable "cosmosdb_database_name" {
 variable "cosmosdb_container_name" {
   description = "Name of the Cosmos DB container"  # Description du nom du conteneur.
   type        = string
-}
-
-# Liste des IPs autorisées à accéder à CosmosDB.
-variable "authorized_ips" {
-  description = "List of IPs allowed to access Cosmos DB."  # Description de la liste des IPs autorisées.
-  type        = list(string)
-  default     = ["203.0.113.0", "198.51.100.0"]  # Valeur par défaut pour les IPs autorisées.
 }
