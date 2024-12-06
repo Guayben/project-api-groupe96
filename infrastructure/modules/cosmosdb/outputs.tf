@@ -4,7 +4,6 @@ output "cosmosdb_endpoint" {
 
 output "cosmosdb_readonly_key" {
   value     = data.azurerm_cosmosdb_account.shop_app_keys.primary_readonly_key
-  sensitive = true
 }
 
 output "cosmosdb_database_name" {

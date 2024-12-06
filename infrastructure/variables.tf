@@ -99,12 +99,6 @@ variable "cosmosdb_endpoint" {
   type        = string
 }
 
-variable "cosmosdb_readonly_key" {
-  description = "Read-only key for the Cosmos DB"
-  type        = string
-  sensitive   = true
-}
-
 variable "cosmosdb_database_name" {
   description = "Name of the Cosmos DB database"
   type        = string

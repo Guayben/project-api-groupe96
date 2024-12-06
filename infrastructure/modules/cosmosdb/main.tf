@@ -6,6 +6,8 @@ resource "azurerm_cosmosdb_account" "shop_app_cosmosdb" {
   kind                             = "GlobalDocumentDB"
   is_virtual_network_filter_enabled = true
 
+  ip_range_filter = ["0.0.0.0"]
+
   consistency_policy {
     consistency_level       = "Session"
     max_interval_in_seconds = 5

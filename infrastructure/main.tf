@@ -49,7 +49,7 @@ module "app_service" {
   api_key                  = var.api_key
 
   cosmosdb_endpoint       = var.cosmosdb_endpoint
-  cosmosdb_readonly_key   = var.cosmosdb_readonly_key
+  cosmosdb_readonly_key   = module.cosmosdb.cosmosdb_readonly_key
   cosmosdb_database_name  = var.cosmosdb_database_name
   cosmosdb_container_name = var.cosmosdb_container_name
 }
