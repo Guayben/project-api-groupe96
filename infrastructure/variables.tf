@@ -124,20 +124,22 @@ variable "baskets_container_name" {
   default = "Baskets"
 }
 
-# Point de terminaison de CosmosDB (non défini par défaut).
+# Point de terminaison de CosmosDB.
 variable "cosmosdb_endpoint" {
   description = "Endpoint of the Cosmos DB"  # Description du point de terminaison.
   type        = string
 }
 
-# Nom de la base de données CosmosDB (non défini par défaut).
+# Nom de la base de données CosmosDB.
 variable "cosmosdb_database_name" {
+  default     = "shop-app-db"
   description = "Name of the Cosmos DB database"  # Description du nom de la base de données.
   type        = string
 }
 
-# Nom du conteneur CosmosDB (non défini par défaut).
+# Nom du conteneur CosmosDB.
 variable "cosmosdb_container_name" {
+  default     = "shop-app-container"
   description = "Name of the Cosmos DB container"  # Description du nom du conteneur.
   type        = string
 }

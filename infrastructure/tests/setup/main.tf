@@ -1,17 +1,16 @@
 terraform {
   required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 4.11.0"
+    random = {
+      source = "hashicorp/random"
+      version = "3.5.1"
     }
   }
 }
 
-provider "azurerm" {
-  features {}
-  subscription_id = var.subscription_id
+resource "random_pet" "test_prefix" {
+  length = 3
 }
 
-variable "subscription_id" {
-  type = string
+output "test_prefix" {
+  value = random_pet.test_prefix.id
 }
