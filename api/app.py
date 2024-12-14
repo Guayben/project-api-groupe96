@@ -44,10 +44,6 @@ def verify_api_key():
     if key != API_KEY:
         abort(403)  # Access denied if the key is invalid
 
-@app.route("/")
-def home():
-    return jsonify({"message": "Lancelot je t'aime"})
-
 # Items endpoint
 @app.route("/items", methods=["GET"])
 @limiter.limit("10 per minute")
@@ -69,7 +65,7 @@ def add_item():
     item = {
         "id": data["id"],
         "name": data["name"],
-        "partitionKey": data["id"],  # Use ID as partition key
+        "partitionKey": data["id"], 
     }
 
     try:
@@ -78,7 +74,7 @@ def add_item():
     except exceptions.CosmosResourceExistsError:
         return jsonify({"error": "Item already exists"}), 409
 
-# Baskets endpoint
+
 @app.route("/baskets", methods=["GET"])
 @limiter.limit("10 per minute")
 def get_baskets():
@@ -89,7 +85,7 @@ def get_baskets():
     except exceptions.CosmosHttpResponseError as e:
         return jsonify({"error": str(e)}), 500
 
-# Users endpoint
+
 @app.route("/users", methods=["GET"])
 @limiter.limit("10 per minute")
 def get_users():
@@ -100,7 +96,7 @@ def get_users():
     except exceptions.CosmosHttpResponseError as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/ui")
+@app.route("/")
 def ui():
     return render_template("index.html")
 
